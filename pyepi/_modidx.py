@@ -5,4 +5,4 @@ d = { 'settings': { 'branch': 'main',
                 'doc_host': 'https://slee5777.github.io',
                 'git_url': 'https://github.com/slee5777/pyepi',
                 'lib_path': 'pyepi'},
-  'syms': {'pyepi.core': {'pyepi.core.foo': ('core.html#foo', 'pyepi/core.py')}}}
+  'syms': {'pyepi.core': {'pyepi.core.foo': ('core.html#foo', 'pyepi/core.py')}, 'pyepi.moving': {}}}
