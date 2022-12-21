@@ -1,3 +1,8 @@
+# data
+nbs/epiRhandbook_data/
+_proc/epiRhandbook_data/
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
