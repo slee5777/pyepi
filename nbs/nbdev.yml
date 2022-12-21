@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "pyepi"
+  site-url: "https://slee5777.github.io/pyepi"
+  description: ""
+  repo-branch: main
+  repo-url: "https://github.com/slee5777/pyepi"
