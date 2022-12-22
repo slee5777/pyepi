@@ -7,6 +7,6 @@ __all__ = []
 import pandas as pd
 import numpy as np
 from scipy import stats
-from IPython.core.interactiveshell import InteractiveShell 
+# from IPython.core.interactiveshell import InteractiveShell 
 import matplotlib.pyplot as plt
 import matplotlib.style as style
