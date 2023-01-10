@@ -1,0 +1,2281 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.91">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="with reference to EpiRHandbook Chapter 10">
+
+<title>pyepi - Characters and Strings</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="pyepi - Characters and Strings">
+<meta property="og:description" content="with reference to EpiRHandbook Chapter 10">
+<meta property="og:site-name" content="pyepi">
+<meta name="twitter:title" content="pyepi - Characters and Strings">
+<meta name="twitter:description" content="with reference to EpiRHandbook Chapter 10">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">pyepi</span>
+    </a>
+  </div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Characters and Strings</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">pyepi</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core.html" class="sidebar-item-text sidebar-link">Download data</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../moving_averages.html" class="sidebar-item-text sidebar-link">Moving Average</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Data Management</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Data Management/cleaning_data_and_core_functions.html" class="sidebar-item-text sidebar-link">Cleaning Data and Core Functions</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Data Management/working_with_dates.html" class="sidebar-item-text sidebar-link">Working with Dates</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Data Management/characters_and_strings.html" class="sidebar-item-text sidebar-link active">Characters and Strings</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#data" id="toc-data" class="nav-link active" data-scroll-target="#data">Data</a></li>
+  <li><a href="#unite-split-and-arrange" id="toc-unite-split-and-arrange" class="nav-link" data-scroll-target="#unite-split-and-arrange">Unite, Split, and Arrange</a>
+  <ul class="collapse">
+  <li><a href="#combine-strings" id="toc-combine-strings" class="nav-link" data-scroll-target="#combine-strings">Combine Strings</a></li>
+  <li><a href="#dynamic-strings" id="toc-dynamic-strings" class="nav-link" data-scroll-target="#dynamic-strings">Dynamic Strings</a></li>
+  <li><a href="#pulling-from-a-dataframe" id="toc-pulling-from-a-dataframe" class="nav-link" data-scroll-target="#pulling-from-a-dataframe">Pulling from a Dataframe</a></li>
+  <li><a href="#data-frame-to-one-line" id="toc-data-frame-to-one-line" class="nav-link" data-scroll-target="#data-frame-to-one-line">Data frame to one line</a></li>
+  <li><a href="#unite-columns" id="toc-unite-columns" class="nav-link" data-scroll-target="#unite-columns">Unite Columns</a></li>
+  <li><a href="#combine-columns-using-operator-not-working-if-there-are-empty-cells" id="toc-combine-columns-using-operator-not-working-if-there-are-empty-cells" class="nav-link" data-scroll-target="#combine-columns-using-operator-not-working-if-there-are-empty-cells">combine columns using <code>+</code> Operator (Not working if there are empty cells)</a>
+  <ul class="collapse">
+  <li><a href="#using-.apply-method-to-combine-string-columns" id="toc-using-.apply-method-to-combine-string-columns" class="nav-link" data-scroll-target="#using-.apply-method-to-combine-string-columns">Using <code>.apply()</code> Method to Combine String Columns</a></li>
+  </ul></li>
+  <li><a href="#split" id="toc-split" class="nav-link" data-scroll-target="#split">Split</a></li>
+  <li><a href="#arrange-alphabetically" id="toc-arrange-alphabetically" class="nav-link" data-scroll-target="#arrange-alphabetically">Arrange Alphabetically</a></li>
+  </ul></li>
+  <li><a href="#clean-and-standardise" id="toc-clean-and-standardise" class="nav-link" data-scroll-target="#clean-and-standardise">Clean and Standardise</a>
+  <ul class="collapse">
+  <li><a href="#change-case" id="toc-change-case" class="nav-link" data-scroll-target="#change-case">Change Case</a></li>
+  <li><a href="#title-case" id="toc-title-case" class="nav-link" data-scroll-target="#title-case">Title Case</a></li>
+  <li><a href="#pad-length" id="toc-pad-length" class="nav-link" data-scroll-target="#pad-length">Pad Length</a></li>
+  <li><a href="#truncate" id="toc-truncate" class="nav-link" data-scroll-target="#truncate">Truncate</a></li>
+  <li><a href="#standarize-length" id="toc-standarize-length" class="nav-link" data-scroll-target="#standarize-length">Standarize Length</a></li>
+  <li><a href="#remove-leadingtrailing-whitespace" id="toc-remove-leadingtrailing-whitespace" class="nav-link" data-scroll-target="#remove-leadingtrailing-whitespace">Remove leading/trailing whitespace</a></li>
+  <li><a href="#remove-repeated-whitespace-within" id="toc-remove-repeated-whitespace-within" class="nav-link" data-scroll-target="#remove-repeated-whitespace-within">Remove Repeated Whitespace within</a></li>
+  <li><a href="#wrap-into-paragraphs" id="toc-wrap-into-paragraphs" class="nav-link" data-scroll-target="#wrap-into-paragraphs">Wrap into Paragraphs</a></li>
+  </ul></li>
+  <li><a href="#handle-by-position" id="toc-handle-by-position" class="nav-link" data-scroll-target="#handle-by-position">Handle by Position</a>
+  <ul class="collapse">
+  <li><a href="#extract-by-word-position" id="toc-extract-by-word-position" class="nav-link" data-scroll-target="#extract-by-word-position">Extract by Word Position</a></li>
+  <li><a href="#replace-by-character-position" id="toc-replace-by-character-position" class="nav-link" data-scroll-target="#replace-by-character-position">Replace by Character Position</a></li>
+  </ul></li>
+  <li><a href="#patterns" id="toc-patterns" class="nav-link" data-scroll-target="#patterns">Patterns</a>
+  <ul class="collapse">
+  <li><a href="#detect-a-pattern" id="toc-detect-a-pattern" class="nav-link" data-scroll-target="#detect-a-pattern">Detect a pattern</a></li>
+  <li><a href="#detect-multiple-terms-separated-by-or-bars" id="toc-detect-multiple-terms-separated-by-or-bars" class="nav-link" data-scroll-target="#detect-multiple-terms-separated-by-or-bars">Detect Multiple Terms, separated by OR bars <code>|</code></a></li>
+  <li><a href="#convert-commas-to-period-." id="toc-convert-commas-to-period-." class="nav-link" data-scroll-target="#convert-commas-to-period-.">Convert Commas <code>,</code> to Period <code>.</code></a></li>
+  <li><a href="#replace-all" id="toc-replace-all" class="nav-link" data-scroll-target="#replace-all">Replace All</a></li>
+  <li><a href="#detect-with-logic" id="toc-detect-with-logic" class="nav-link" data-scroll-target="#detect-with-logic">Detect with Logic</a></li>
+  <li><a href="#locate-pattern-position" id="toc-locate-pattern-position" class="nav-link" data-scroll-target="#locate-pattern-position">Locate Pattern Position</a></li>
+  <li><a href="#extract-a-match" id="toc-extract-a-match" class="nav-link" data-scroll-target="#extract-a-match">Extract a Match</a></li>
+  <li><a href="#subset-and-count" id="toc-subset-and-count" class="nav-link" data-scroll-target="#subset-and-count">Subset and Count</a></li>
+  </ul></li>
+  <li><a href="#special-characters" id="toc-special-characters" class="nav-link" data-scroll-target="#special-characters">Special Characters</a></li>
+  <li><a href="#regular-expression-and-special-characters" id="toc-regular-expression-and-special-characters" class="nav-link" data-scroll-target="#regular-expression-and-special-characters">Regular Expression and Special Characters</a>
+  <ul class="collapse">
+  <li><a href="#quantifiers" id="toc-quantifiers" class="nav-link" data-scroll-target="#quantifiers">Quantifiers <code>{}</code></a></li>
+  <li><a href="#relative-position" id="toc-relative-position" class="nav-link" data-scroll-target="#relative-position">Relative Position</a></li>
+  <li><a href="#regex-examples" id="toc-regex-examples" class="nav-link" data-scroll-target="#regex-examples">RegEx Examples</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/slee5777/pyepi/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Characters and Strings</h1>
+</div>
+
+<div>
+  <div class="description">
+    with reference to EpiRHandbook Chapter 10
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># import numpy as np</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># from scipy import stats</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># import matplotlib.pyplot as plt</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.style <span class="im">as</span> style</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
+<p>Import data from https://github.com/appliedepi/epiRhandbook_eng/blob/master/data/linelist_cleaned.xlsx and then save under “epiRhandbook_data” folder.<br>
+Note: Installation of “openpyxl” is required.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="op">=</span> pd.read_excel(<span class="st">'../epiRhandbook_data/linelist_cleaned.xlsx'</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>linelist.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>case_id</th>
+      <th>generation</th>
+      <th>date_infection</th>
+      <th>date_onset</th>
+      <th>date_hospitalisation</th>
+      <th>date_outcome</th>
+      <th>outcome</th>
+      <th>gender</th>
+      <th>age</th>
+      <th>age_unit</th>
+      <th>age_years</th>
+      <th>age_cat</th>
+      <th>age_cat5</th>
+      <th>hospital</th>
+      <th>lon</th>
+      <th>lat</th>
+      <th>infector</th>
+      <th>source</th>
+      <th>wt_kg</th>
+      <th>ht_cm</th>
+      <th>ct_blood</th>
+      <th>fever</th>
+      <th>chills</th>
+      <th>cough</th>
+      <th>aches</th>
+      <th>vomit</th>
+      <th>temp</th>
+      <th>time_admission</th>
+      <th>bmi</th>
+      <th>days_onset_hosp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5fe599</td>
+      <td>4</td>
+      <td>2014-05-08</td>
+      <td>2014-05-13</td>
+      <td>2014-05-15</td>
+      <td>NaT</td>
+      <td>NaN</td>
+      <td>m</td>
+      <td>2.0</td>
+      <td>years</td>
+      <td>2.0</td>
+      <td>0-4</td>
+      <td>0-4</td>
+      <td>Other</td>
+      <td>-13.215735</td>
+      <td>8.468973</td>
+      <td>f547d6</td>
+      <td>other</td>
+      <td>27</td>
+      <td>48</td>
+      <td>22</td>
+      <td>no</td>
+      <td>no</td>
+      <td>yes</td>
+      <td>no</td>
+      <td>yes</td>
+      <td>36.8</td>
+      <td>NaN</td>
+      <td>117.187500</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>8689b7</td>
+      <td>4</td>
+      <td>NaT</td>
+      <td>2014-05-13</td>
+      <td>2014-05-14</td>
+      <td>2014-05-18</td>
+      <td>Recover</td>
+      <td>f</td>
+      <td>3.0</td>
+      <td>years</td>
+      <td>3.0</td>
+      <td>0-4</td>
+      <td>0-4</td>
+      <td>Missing</td>
+      <td>-13.215234</td>
+      <td>8.451719</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>25</td>
+      <td>59</td>
+      <td>22</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>36.9</td>
+      <td>09:36</td>
+      <td>71.818443</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>11f8ea</td>
+      <td>2</td>
+      <td>NaT</td>
+      <td>2014-05-16</td>
+      <td>2014-05-18</td>
+      <td>2014-05-30</td>
+      <td>Recover</td>
+      <td>m</td>
+      <td>56.0</td>
+      <td>years</td>
+      <td>56.0</td>
+      <td>50-69</td>
+      <td>55-59</td>
+      <td>St. Mark's Maternity Hospital (SMMH)</td>
+      <td>-13.212911</td>
+      <td>8.464817</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>91</td>
+      <td>238</td>
+      <td>21</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>36.9</td>
+      <td>16:48</td>
+      <td>16.065250</td>
+      <td>2.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="unite-split-and-arrange" class="level1">
+<h1>Unite, Split, and Arrange</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>str_1 <span class="op">=</span> <span class="st">"String1"</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>str_2 <span class="op">=</span> <span class="st">"String2"</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>str_3 <span class="op">=</span> <span class="st">"String3"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="combine-strings" class="level2">
+<h2 class="anchored" data-anchor-id="combine-strings">Combine Strings</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>str_c <span class="op">=</span> str_1 <span class="op">+</span> str_2 <span class="op">+</span> str_3</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>str_c</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'String1String2String3'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>combined_string <span class="op">=</span> <span class="st">" "</span>.join([str_1, str_2, str_3])</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>combined_string</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'String1 String2 String3'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>first_names <span class="op">=</span> (<span class="st">"abdul"</span>, <span class="st">"fahruk"</span>, <span class="st">"janice"</span>) </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>last_names  <span class="op">=</span> (<span class="st">"hussein"</span>, <span class="st">"akinleye"</span>, <span class="st">"okeke"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>names <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(first_names, last_names))</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(names)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>combined_names <span class="op">=</span> [<span class="ss">f"</span><span class="sc">{</span>first<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span>last<span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> first, last <span class="kw">in</span> names]</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">";  "</span>.join(combined_names)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[('abdul', 'hussein'), ('fahruk', 'akinleye'), ('janice', 'okeke')]</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>'abdul hussein;  fahruk akinleye;  janice okeke'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"; </span><span class="ch">\n</span><span class="st">"</span>.join(combined_names))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>abdul hussein; 
+fahruk akinleye; 
+janice okeke</code></pre>
+</div>
+</div>
+</section>
+<section id="dynamic-strings" class="level2">
+<h2 class="anchored" data-anchor-id="dynamic-strings">Dynamic Strings</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Data include </span><span class="sc">{</span><span class="bu">len</span>(linelist)<span class="sc">}</span><span class="ss"> cases and are current to </span><span class="sc">{</span><span class="bu">format</span>(datetime.now(), <span class="st">'</span><span class="sc">%d</span><span class="st"> %b %Y'</span>)<span class="sc">}</span><span class="ss">."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Data include 5888 cases and are current to 09 Jan 2023.</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>current_date  <span class="op">=</span> <span class="bu">format</span>(datetime.now(), <span class="st">'</span><span class="sc">%d</span><span class="st"> %b %Y'</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>last_hospital <span class="op">=</span> <span class="bu">format</span>((<span class="bu">max</span>(linelist[<span class="st">'date_hospitalisation'</span>])), <span class="st">'</span><span class="sc">%d</span><span class="st"> %B %Y'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>last_hospital</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'30 April 2015'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>n_missing_onset <span class="op">=</span> linelist[<span class="st">'date_onset'</span>].isnull().<span class="bu">sum</span>()</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>n_missing_onset</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>256</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Linelist as of </span><span class="sc">{</span>current_date<span class="sc">}</span><span class="ss">.</span><span class="ch">\n</span><span class="ss">Last case hospitalized on </span><span class="sc">{</span>last_hospital<span class="sc">}</span><span class="ss">.</span><span class="ch">\n</span><span class="sc">{</span>n_missing_onset<span class="sc">}</span><span class="ss"> cases are missing date of onset and not shown."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linelist as of 09 Jan 2023.
+Last case hospitalized on 30 April 2015.
+256 cases are missing date of onset and not shown.</code></pre>
+</div>
+</div>
+</section>
+<section id="pulling-from-a-dataframe" class="level2">
+<h2 class="anchored" data-anchor-id="pulling-from-a-dataframe">Pulling from a Dataframe</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>zone        <span class="op">=</span> (<span class="st">"Zone 1"</span>, <span class="st">"Zone 2"</span>, <span class="st">"Zone 3"</span>, <span class="st">"Zone 4"</span>, <span class="st">"Zone 5"</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>new_cases   <span class="op">=</span> (<span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">0</span>, <span class="dv">15</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>total_cases <span class="op">=</span> (<span class="dv">40</span>, <span class="dv">4</span>, <span class="dv">25</span>, <span class="dv">10</span>, <span class="dv">103</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(<span class="bu">list</span>(<span class="bu">zip</span>(zone, new_cases, total_cases)), columns<span class="op">=</span>[<span class="st">'zone'</span>, <span class="st">'new_cases'</span>, <span class="st">'total_cases'</span>])</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>zone</th>
+      <th>new_cases</th>
+      <th>total_cases</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Zone 1</td>
+      <td>3</td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Zone 2</td>
+      <td>0</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Zone 3</td>
+      <td>7</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Zone 4</td>
+      <td>0</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Zone 5</td>
+      <td>15</td>
+      <td>103</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> index, row <span class="kw">in</span> df.iterrows():</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>row[<span class="st">'zone'</span>]<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>row[<span class="st">'new_cases'</span>]<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span>row[<span class="st">'total_cases'</span>]<span class="sc">}</span><span class="ss"> total cases)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Zone 1: 3 (40 total cases)
+Zone 2: 0 (4 total cases)
+Zone 3: 7 (25 total cases)
+Zone 4: 0 (10 total cases)
+Zone 5: 15 (103 total cases)</code></pre>
+</div>
+</div>
+</section>
+<section id="data-frame-to-one-line" class="level2">
+<h2 class="anchored" data-anchor-id="data-frame-to-one-line">Data frame to one line</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> index, row <span class="kw">in</span> df.iterrows():</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>row[<span class="st">'zone'</span>]<span class="sc">}</span><span class="ss">= </span><span class="sc">{</span>row[<span class="st">'new_cases'</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Zone 1= 3
+Zone 2= 0
+Zone 3= 7
+Zone 4= 0
+Zone 5= 15</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> [<span class="ss">f"</span><span class="sc">{</span>row[<span class="st">'zone'</span>]<span class="sc">}</span><span class="ss">= </span><span class="sc">{</span>row[<span class="st">'new_cases'</span>]<span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> _, row <span class="kw">in</span> df.iterrows()]</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['Zone 1= 3', 'Zone 2= 0', 'Zone 3= 7', 'Zone 4= 0', 'Zone 5= 15']</code></pre>
+</div>
+</div>
+</section>
+<section id="unite-columns" class="level2">
+<h2 class="anchored" data-anchor-id="unite-columns">Unite Columns</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>case_ID <span class="op">=</span> <span class="bu">range</span>(<span class="dv">1</span>,<span class="dv">7</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>symptoms <span class="op">=</span> (<span class="st">"jaundice, fever, chills"</span>,  <span class="co"># patient 1</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>         <span class="st">"chills, aches, pains"</span>,        <span class="co"># patient 2 </span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>         <span class="st">"fever"</span>,                       <span class="co"># patient 3</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>         <span class="st">"vomiting, diarrhoea"</span>,         <span class="co"># patient 4</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>         <span class="st">"bleeding from gums, fever"</span>,   <span class="co"># patient 5</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>         <span class="st">"rapid pulse, headache"</span>)       <span class="co"># patient 6</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>outcome <span class="op">=</span> (<span class="st">"Recover"</span>, <span class="st">"Death"</span>, <span class="st">"Death"</span>, <span class="st">"Recover"</span>, <span class="st">"Recover"</span>, <span class="st">"Recover"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(<span class="bu">list</span>(<span class="bu">zip</span>(case_ID, symptoms, outcome)), columns<span class="op">=</span>[<span class="st">'case_ID'</span>, <span class="st">'symtons'</span>, <span class="st">'outcome'</span>])</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>case_ID</th>
+      <th>symtons</th>
+      <th>outcome</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>jaundice, fever, chills</td>
+      <td>Recover</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>chills, aches, pains</td>
+      <td>Death</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>fever</td>
+      <td>Death</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>vomiting, diarrhoea</td>
+      <td>Recover</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>bleeding from gums, fever</td>
+      <td>Recover</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>rapid pulse, headache</td>
+      <td>Recover</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>df_split <span class="op">=</span> pd.concat([df[[<span class="st">'case_ID'</span>]], df[<span class="st">'symtons'</span>].<span class="bu">str</span>.split(<span class="st">', '</span>, expand<span class="op">=</span><span class="va">True</span>), df[<span class="st">'outcome'</span>]], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>df_split <span class="op">=</span> df_split.rename({<span class="dv">0</span>: <span class="st">'sym1'</span>, <span class="dv">1</span>: <span class="st">'sym2'</span>, <span class="dv">2</span>:<span class="st">'sym3'</span>}, axis<span class="op">=</span><span class="st">'columns'</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>df_split</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>case_ID</th>
+      <th>sym1</th>
+      <th>sym2</th>
+      <th>sym3</th>
+      <th>outcome</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>jaundice</td>
+      <td>fever</td>
+      <td>chills</td>
+      <td>Recover</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>chills</td>
+      <td>aches</td>
+      <td>pains</td>
+      <td>Death</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>fever</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Death</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>vomiting</td>
+      <td>diarrhoea</td>
+      <td>None</td>
+      <td>Recover</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>bleeding from gums</td>
+      <td>fever</td>
+      <td>None</td>
+      <td>Recover</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>rapid pulse</td>
+      <td>headache</td>
+      <td>None</td>
+      <td>Recover</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="combine-columns-using-operator-not-working-if-there-are-empty-cells" class="level2">
+<h2 class="anchored" data-anchor-id="combine-columns-using-operator-not-working-if-there-are-empty-cells">combine columns using <code>+</code> Operator (Not working if there are empty cells)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>df_split[<span class="st">'all_symptons'</span>] <span class="op">=</span> df_split[<span class="st">'sym1'</span>] <span class="op">+</span> <span class="st">", "</span> <span class="op">+</span> df_split[<span class="st">'sym2'</span>] <span class="op">+</span> <span class="st">", "</span> <span class="op">+</span> df_split[<span class="st">'sym3'</span>]</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>df_split</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>case_ID</th>
+      <th>sym1</th>
+      <th>sym2</th>
+      <th>sym3</th>
+      <th>outcome</th>
+      <th>all_symptons</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>jaundice</td>
+      <td>fever</td>
+      <td>chills</td>
+      <td>Recover</td>
+      <td>jaundice, fever, chills</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>chills</td>
+      <td>aches</td>
+      <td>pains</td>
+      <td>Death</td>
+      <td>chills, aches, pains</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>fever</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Death</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>vomiting</td>
+      <td>diarrhoea</td>
+      <td>None</td>
+      <td>Recover</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>bleeding from gums</td>
+      <td>fever</td>
+      <td>None</td>
+      <td>Recover</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>rapid pulse</td>
+      <td>headache</td>
+      <td>None</td>
+      <td>Recover</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<section id="using-.apply-method-to-combine-string-columns" class="level3">
+<h3 class="anchored" data-anchor-id="using-.apply-method-to-combine-string-columns">Using <code>.apply()</code> Method to Combine String Columns</h3>
+<p>Important: fill None with ” ”</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>df_all <span class="op">=</span> df_split.copy(deep<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>df_all_1 <span class="op">=</span> df_all.fillna(<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>df_all_1[<span class="st">'all_symptons'</span>] <span class="op">=</span> df_all_1[[<span class="st">'sym1'</span>, <span class="st">'sym2'</span>, <span class="st">'sym3'</span>]].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">" "</span>.join(x), axis <span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>df_all_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>case_ID</th>
+      <th>sym1</th>
+      <th>sym2</th>
+      <th>sym3</th>
+      <th>outcome</th>
+      <th>all_symptons</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>jaundice</td>
+      <td>fever</td>
+      <td>chills</td>
+      <td>Recover</td>
+      <td>jaundice fever chills</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>chills</td>
+      <td>aches</td>
+      <td>pains</td>
+      <td>Death</td>
+      <td>chills aches pains</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>fever</td>
+      <td></td>
+      <td></td>
+      <td>Death</td>
+      <td>fever</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>vomiting</td>
+      <td>diarrhoea</td>
+      <td></td>
+      <td>Recover</td>
+      <td>vomiting diarrhoea</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>bleeding from gums</td>
+      <td>fever</td>
+      <td></td>
+      <td>Recover</td>
+      <td>bleeding from gums fever</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>rapid pulse</td>
+      <td>headache</td>
+      <td></td>
+      <td>Recover</td>
+      <td>rapid pulse headache</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>df_all_1[[<span class="st">'case_ID'</span>, <span class="st">'all_symptons'</span>, <span class="st">'outcome'</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>case_ID</th>
+      <th>all_symptons</th>
+      <th>outcome</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>jaundice fever chills</td>
+      <td>Recover</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>chills aches pains</td>
+      <td>Death</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>fever</td>
+      <td>Death</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>vomiting diarrhoea</td>
+      <td>Recover</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>bleeding from gums fever</td>
+      <td>Recover</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>rapid pulse headache</td>
+      <td>Recover</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="split" class="level2">
+<h2 class="anchored" data-anchor-id="split">Split</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>string <span class="op">=</span> <span class="st">"jaundice, fever, chills"</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>string.split(<span class="st">','</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['jaundice', ' fever', ' chills']</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>string.split(<span class="st">', '</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['jaundice', 'fever', 'chills']</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>pt1_symptoms <span class="op">=</span> string.split(<span class="st">', '</span>)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>pt1_symptoms[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'fever'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>symptoms <span class="op">=</span>   [<span class="st">"jaundice, fever, chills"</span>,     <span class="co"># patient 1</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>              <span class="st">"chills, aches, pains"</span>,        <span class="co"># patient 2 </span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>              <span class="st">"fever"</span>,                       <span class="co"># patient 3</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>              <span class="st">"vomiting, diarrhoea"</span>,         <span class="co"># patient 4</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>              <span class="st">"bleeding from gums, fever"</span>,   <span class="co"># patient 5</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>              <span class="st">"rapid pulse, headache"</span>]       <span class="co"># patient 6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>symptoms[<span class="dv">0</span>]   <span class="co"># Python indexing starts from zero</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'jaundice, fever, chills'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>symptoms[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'chills, aches, pains'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>symptoms[<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'fever'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>symptoms[<span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'vomiting, diarrhoea'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>symptoms[<span class="dv">4</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'bleeding from gums, fever'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>symptoms[<span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'rapid pulse, headache'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>case_ID</th>
+      <th>symtons</th>
+      <th>outcome</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>jaundice, fever, chills</td>
+      <td>Recover</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>chills, aches, pains</td>
+      <td>Death</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>fever</td>
+      <td>Death</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>vomiting, diarrhoea</td>
+      <td>Recover</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>bleeding from gums, fever</td>
+      <td>Recover</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>rapid pulse, headache</td>
+      <td>Recover</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Note: <code>None</code> for empty cell</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>symt_all <span class="op">=</span> df[<span class="st">'symtons'</span>].<span class="bu">str</span>.split(<span class="st">', '</span>, expand<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>symt_all <span class="op">=</span> symt_all.rename({<span class="dv">0</span>: <span class="st">'sym1'</span>, <span class="dv">1</span>: <span class="st">'sym2'</span>, <span class="dv">2</span>: <span class="st">'sym3'</span>}, axis<span class="op">=</span><span class="st">'columns'</span>)</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>symt_all</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>sym1</th>
+      <th>sym2</th>
+      <th>sym3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>jaundice</td>
+      <td>fever</td>
+      <td>chills</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>chills</td>
+      <td>aches</td>
+      <td>pains</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>fever</td>
+      <td>None</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>vomiting</td>
+      <td>diarrhoea</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>bleeding from gums</td>
+      <td>fever</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>rapid pulse</td>
+      <td>headache</td>
+      <td>None</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>symt_all <span class="op">=</span> symt_all.fillna(<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>symt_all[<span class="st">'sym_2'</span>] <span class="op">=</span> symt_all[[<span class="st">'sym2'</span>, <span class="st">'sym3'</span>]].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">" "</span>.join(x), axis <span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>symt_all</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>sym1</th>
+      <th>sym2</th>
+      <th>sym3</th>
+      <th>sym_2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>jaundice</td>
+      <td>fever</td>
+      <td>chills</td>
+      <td>fever chills</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>chills</td>
+      <td>aches</td>
+      <td>pains</td>
+      <td>aches pains</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>fever</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>vomiting</td>
+      <td>diarrhoea</td>
+      <td></td>
+      <td>diarrhoea</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>bleeding from gums</td>
+      <td>fever</td>
+      <td></td>
+      <td>fever</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>rapid pulse</td>
+      <td>headache</td>
+      <td></td>
+      <td>headache</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>df_split1 <span class="op">=</span> pd.concat([df[[<span class="st">'case_ID'</span>]], symt_all[<span class="st">'sym1'</span>], symt_all[<span class="st">'sym_2'</span>], df[<span class="st">'outcome'</span>]], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>df_split1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>case_ID</th>
+      <th>sym1</th>
+      <th>sym_2</th>
+      <th>outcome</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>jaundice</td>
+      <td>fever chills</td>
+      <td>Recover</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>chills</td>
+      <td>aches pains</td>
+      <td>Death</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>fever</td>
+      <td></td>
+      <td>Death</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>vomiting</td>
+      <td>diarrhoea</td>
+      <td>Recover</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>bleeding from gums</td>
+      <td>fever</td>
+      <td>Recover</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>rapid pulse</td>
+      <td>headache</td>
+      <td>Recover</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Warnings: If limited the expanded columns, your data may be truncated.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>symt2 <span class="op">=</span> symt_all[symt_all.columns[<span class="dv">0</span>:<span class="dv">2</span>]]</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>symt2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>sym1</th>
+      <th>sym2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>jaundice</td>
+      <td>fever</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>chills</td>
+      <td>aches</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>fever</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>vomiting</td>
+      <td>diarrhoea</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>bleeding from gums</td>
+      <td>fever</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>rapid pulse</td>
+      <td>headache</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>df_split2 <span class="op">=</span> pd.concat([df[[<span class="st">'case_ID'</span>]], symt2, df[<span class="st">'outcome'</span>]], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>df_split2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>case_ID</th>
+      <th>sym1</th>
+      <th>sym2</th>
+      <th>outcome</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>jaundice</td>
+      <td>fever</td>
+      <td>Recover</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>chills</td>
+      <td>aches</td>
+      <td>Death</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>fever</td>
+      <td></td>
+      <td>Death</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>vomiting</td>
+      <td>diarrhoea</td>
+      <td>Recover</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>bleeding from gums</td>
+      <td>fever</td>
+      <td>Recover</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>rapid pulse</td>
+      <td>headache</td>
+      <td>Recover</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="arrange-alphabetically" class="level2">
+<h2 class="anchored" data-anchor-id="arrange-alphabetically">Arrange Alphabetically</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>health_zones <span class="op">=</span> [<span class="st">"Alba"</span>, <span class="st">"Takota"</span>, <span class="st">"Delta"</span>]</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>health_zones.sort()</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>health_zones</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['Alba', 'Delta', 'Takota']</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>n_beds <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>n_masks <span class="op">=</span> <span class="dv">20</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Regional hospital needs"</span>, n_beds, <span class="st">"beds and"</span>, n_masks, <span class="st">"masks."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Regional hospital needs 10 beds and 20 masks.</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Regional hospital needs </span><span class="sc">{</span>n_beds<span class="sc">}</span><span class="ss"> beds and </span><span class="sc">{</span>n_masks<span class="sc">}</span><span class="ss"> masks."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Regional hospital needs 10 beds and 20 masks.</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="clean-and-standardise" class="level1">
+<h1>Clean and Standardise</h1>
+<section id="change-case" class="level2">
+<h2 class="anchored" data-anchor-id="change-case">Change Case</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>str1 <span class="op">=</span> <span class="st">"California"</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>str1.upper()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'CALIFORNIA'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>str1.lower()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'california'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>str1.title()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'California'</code></pre>
+</div>
+</div>
+</section>
+<section id="title-case" class="level2">
+<h2 class="anchored" data-anchor-id="title-case">Title Case</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>str2 <span class="op">=</span> <span class="st">"go to the US state of california "</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>str2.title()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'Go To The Us State Of California '</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>str3 <span class="op">=</span> <span class="st">"the patient must be transported"</span></span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>str3.capitalize()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'The patient must be transported'</code></pre>
+</div>
+</div>
+</section>
+<section id="pad-length" class="level2">
+<h2 class="anchored" data-anchor-id="pad-length">Pad Length</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>ICD_codes <span class="op">=</span> [<span class="st">"R10.13"</span>, <span class="st">"R10.819"</span>, <span class="st">"R17"</span>]</span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>[i.ljust(<span class="dv">7</span>) <span class="cf">for</span> i <span class="kw">in</span> ICD_codes]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['R10.13 ', 'R10.819', 'R17    ']</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>[i.ljust(<span class="dv">7</span>, <span class="st">'.'</span>) <span class="cf">for</span> i <span class="kw">in</span> ICD_codes]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['R10.13.', 'R10.819', 'R17....']</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="bu">str</span>(<span class="dv">4</span>).rjust(<span class="dv">2</span>, <span class="st">'0'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'04'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>[<span class="bu">str</span>(i).rjust(<span class="dv">2</span>, <span class="st">'0'</span>) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">4</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['00', '01', '02', '03']</code></pre>
+</div>
+</div>
+</section>
+<section id="truncate" class="level2">
+<h2 class="anchored" data-anchor-id="truncate">Truncate</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>original <span class="op">=</span> <span class="st">"Symptom onset on 4/3/2020 with vomiting"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>original[:<span class="dv">4</span>] <span class="op">+</span> <span class="st">"..."</span> <span class="op">+</span> original[<span class="op">-</span><span class="dv">3</span>:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'Symp...ing'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> textwrap</span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>textwrap.shorten(<span class="st">"Symptom onset on 4/3/2020 with vomiting"</span>, width<span class="op">=</span><span class="dv">10</span>, placeholder<span class="op">=</span><span class="st">"..."</span>)<span class="op">+</span> original[<span class="op">-</span><span class="dv">3</span>:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'Symptom...ing'</code></pre>
+</div>
+</div>
+</section>
+<section id="standarize-length" class="level2">
+<h2 class="anchored" data-anchor-id="standarize-length">Standarize Length</h2>
+<p>Set as length of 6</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>[i.ljust(<span class="dv">6</span>, <span class="st">"."</span>)[:<span class="dv">6</span>] <span class="cf">for</span> i <span class="kw">in</span> ICD_codes]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['R10.13', 'R10.81', 'R17...']</code></pre>
+</div>
+</div>
+</section>
+<section id="remove-leadingtrailing-whitespace" class="level2">
+<h2 class="anchored" data-anchor-id="remove-leadingtrailing-whitespace">Remove leading/trailing whitespace</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>IDs <span class="op">=</span>   [<span class="st">"provA_1852  "</span>, <span class="co"># two excess spaces</span></span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>         <span class="st">"provA_2345"</span>,   <span class="co"># zero excess spaces</span></span>
+<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>         <span class="st">"provA_9460 "</span>]  <span class="co"># one excess space</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>[i.strip() <span class="cf">for</span> i <span class="kw">in</span> IDs]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['provA_1852', 'provA_2345', 'provA_9460']</code></pre>
+</div>
+</div>
+</section>
+<section id="remove-repeated-whitespace-within" class="level2">
+<h2 class="anchored" data-anchor-id="remove-repeated-whitespace-within">Remove Repeated Whitespace within</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>str_squish <span class="op">=</span> <span class="st">"  Pt requires   IV saline</span><span class="ch">\n</span><span class="st">"</span></span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>str_squish</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'  Pt requires   IV saline\n'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="co">' '</span>.join(str_squish.split())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'Pt requires IV saline'</code></pre>
+</div>
+</div>
+</section>
+<section id="wrap-into-paragraphs" class="level2">
+<h2 class="anchored" data-anchor-id="wrap-into-paragraphs">Wrap into Paragraphs</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>pt_course <span class="op">=</span> <span class="st">"Symptom onset 1/4/2020 vomiting chills fever. Pt saw traditional healer in home village on 2/4/2020. On 5/4/2020 pt symptoms worsened and was admitted to Lumta clinic. Sample was taken and pt was transported to regional hospital on 6/4/2020. Pt died at regional hospital on 7/4/2020."</span></span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>pt_course</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'Symptom onset 1/4/2020 vomiting chills fever. Pt saw traditional healer in home village on 2/4/2020. On 5/4/2020 pt symptoms worsened and was admitted to Lumta clinic. Sample was taken and pt was transported to regional hospital on 6/4/2020. Pt died at regional hospital on 7/4/2020.'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>textwrap.wrap(pt_course, <span class="dv">40</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['Symptom onset 1/4/2020 vomiting chills',
+ 'fever. Pt saw traditional healer in home',
+ 'village on 2/4/2020. On 5/4/2020 pt',
+ 'symptoms worsened and was admitted to',
+ 'Lumta clinic. Sample was taken and pt',
+ 'was transported to regional hospital on',
+ '6/4/2020. Pt died at regional hospital',
+ 'on 7/4/2020.']</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="handle-by-position" class="level1">
+<h1>Handle by Position</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>str_sub <span class="op">=</span> <span class="st">"pneumonia"</span></span>
+<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a>str_sub[<span class="dv">2</span>]   <span class="co"># 3rd letter from left</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'e'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>str_sub[<span class="dv">0</span>]   <span class="co"># Index zero is available in Python</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'p'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>str_sub[<span class="op">-</span><span class="dv">4</span>:]  <span class="co"># 6th from left, to the 1st from right</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'onia'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>str_sub[<span class="dv">4</span>:<span class="op">-</span><span class="dv">1</span>]  <span class="co"># 5th from right, to the 2nd from right</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'moni'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a>str_sub[<span class="dv">3</span>:]  <span class="co"># 4th from left to a position outside the string</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'umonia'</code></pre>
+</div>
+</div>
+<section id="extract-by-word-position" class="level2">
+<h2 class="anchored" data-anchor-id="extract-by-word-position">Extract by Word Position</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a>chief_complaints <span class="op">=</span>   [<span class="st">"I just got out of the hospital 2 days ago, but still can barely breathe."</span>,</span>
+<span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"My stomach hurts"</span>,</span>
+<span id="cb116-3"><a href="#cb116-3" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Severe ear pain"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb117"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a>[<span class="st">" "</span>.join(x.split()[:<span class="dv">3</span>]) <span class="cf">for</span> x <span class="kw">in</span> chief_complaints]  <span class="co"># extract 1st to 3rd words of each string</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['I just got', 'My stomach hurts', 'Severe ear pain']</code></pre>
+</div>
+</div>
+</section>
+<section id="replace-by-character-position" class="level2">
+<h2 class="anchored" data-anchor-id="replace-by-character-position">Replace by Character Position</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb119"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a>word <span class="op">=</span> <span class="st">"pneumonia"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb120"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a>word[<span class="dv">2</span>:<span class="dv">4</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'eu'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb122"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a>new_ele <span class="op">=</span> <span class="st">"XX"</span></span>
+<span id="cb122-2"><a href="#cb122-2" aria-hidden="true" tabindex="-1"></a>word[:<span class="dv">2</span>] <span class="op">+</span> new_ele <span class="op">+</span> word[<span class="dv">4</span>:]  <span class="co"># convert the third and fourth characters to X</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'pnXXmonia'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb124"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a>words <span class="op">=</span> <span class="st">"pneumonia"</span>, <span class="st">"tubercolosis"</span>, <span class="st">"HIV"</span></span>
+<span id="cb124-2"><a href="#cb124-2" aria-hidden="true" tabindex="-1"></a>[word[:<span class="dv">2</span>] <span class="op">+</span> new_ele <span class="op">+</span> word[<span class="dv">4</span>:] <span class="cf">for</span> word <span class="kw">in</span> words]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['pnXXmonia', 'tuXXrcolosis', 'HIXX']</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="patterns" class="level1">
+<h1>Patterns</h1>
+<section id="detect-a-pattern" class="level2">
+<h2 class="anchored" data-anchor-id="detect-a-pattern">Detect a pattern</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb126"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a>string <span class="op">=</span> <span class="st">"primary school teacher"</span></span>
+<span id="cb126-2"><a href="#cb126-2" aria-hidden="true" tabindex="-1"></a>pattern <span class="op">=</span> <span class="st">'teach'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note: If return a numeric number, that is the index of the given string. If return -1, no pattern found.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb127"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a>string.find(pattern)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>15</code></pre>
+</div>
+</div>
+<p>Note: Try to apply the pattern to all of the string, returning a Match object, or None if no match was found.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb129"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb129-1"><a href="#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb129-2"><a href="#cb129-2" aria-hidden="true" tabindex="-1"></a>re.fullmatch(pattern, string)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb130"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> re.fullmatch(pattern, string):</span>
+<span id="cb130-2"><a href="#cb130-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"FALSE"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>FALSE</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb132"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a>occupations <span class="op">=</span> [<span class="st">"field laborer"</span>,</span>
+<span id="cb132-2"><a href="#cb132-2" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"university professor"</span>,</span>
+<span id="cb132-3"><a href="#cb132-3" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"primary school teacher &amp; tutor"</span>,</span>
+<span id="cb132-4"><a href="#cb132-4" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"tutor"</span>,</span>
+<span id="cb132-5"><a href="#cb132-5" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"nurse at regional hospital"</span>,</span>
+<span id="cb132-6"><a href="#cb132-6" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"lineworker at Amberdeen Fish Factory"</span>,</span>
+<span id="cb132-7"><a href="#cb132-7" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"physican"</span>,</span>
+<span id="cb132-8"><a href="#cb132-8" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"cardiologist"</span>,</span>
+<span id="cb132-9"><a href="#cb132-9" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"office worker"</span>,</span>
+<span id="cb132-10"><a href="#cb132-10" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"food service"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb133"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a>[pattern <span class="kw">in</span> o <span class="cf">for</span> o <span class="kw">in</span> occupations]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>[False, False, True, False, False, False, False, False, False, False]</code></pre>
+</div>
+</div>
+<p>Using in a for loop:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb135"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb135-2"><a href="#cb135-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> o <span class="kw">in</span> occupations:</span>
+<span id="cb135-3"><a href="#cb135-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> pattern <span class="kw">in</span> o:</span>
+<span id="cb135-4"><a href="#cb135-4" aria-hidden="true" tabindex="-1"></a>        n<span class="op">+=</span><span class="dv">1</span></span>
+<span id="cb135-5"><a href="#cb135-5" aria-hidden="true" tabindex="-1"></a>n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>1</code></pre>
+</div>
+</div>
+<p>Or, using list comprehension</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb137"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb137-1"><a href="#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="bu">sum</span>([<span class="dv">1</span> <span class="cf">if</span> pattern <span class="kw">in</span> o <span class="cf">else</span> <span class="dv">0</span> <span class="cf">for</span> o <span class="kw">in</span> occupations])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>1</code></pre>
+</div>
+</div>
+</section>
+<section id="detect-multiple-terms-separated-by-or-bars" class="level2">
+<h2 class="anchored" data-anchor-id="detect-multiple-terms-separated-by-or-bars">Detect Multiple Terms, separated by OR bars <code>|</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb139"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb139-1"><a href="#cb139-1" aria-hidden="true" tabindex="-1"></a>pattern <span class="op">=</span> <span class="vs">r"\b(teach|professor|tutor)\b"</span>  <span class="co"># Use raw string and word boundary anchors</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb140"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb140-1"><a href="#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb140-2"><a href="#cb140-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-3"><a href="#cb140-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> count_occurrences(strings, pattern):</span>
+<span id="cb140-4"><a href="#cb140-4" aria-hidden="true" tabindex="-1"></a>    count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb140-5"><a href="#cb140-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> string <span class="kw">in</span> strings:</span>
+<span id="cb140-6"><a href="#cb140-6" aria-hidden="true" tabindex="-1"></a>        count <span class="op">+=</span> <span class="bu">sum</span>(<span class="dv">1</span> <span class="cf">for</span> _ <span class="kw">in</span> re.finditer(pattern, string, re.IGNORECASE))</span>
+<span id="cb140-7"><a href="#cb140-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> count</span>
+<span id="cb140-8"><a href="#cb140-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-9"><a href="#cb140-9" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> count_occurrences(strings<span class="op">=</span>occupations, pattern<span class="op">=</span>pattern)</span>
+<span id="cb140-10"><a href="#cb140-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result)  <span class="co"># Expected output: 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>3</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb142"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb142-1"><a href="#cb142-1" aria-hidden="true" tabindex="-1"></a>occupation_med_frontline <span class="op">=</span>    [<span class="st">"medical"</span>, <span class="st">"medicine"</span>, <span class="st">"hcw"</span>, <span class="st">"healthcare"</span>, <span class="st">"home care"</span>, <span class="st">"home health"</span>,</span>
+<span id="cb142-2"><a href="#cb142-2" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"surgeon"</span>, <span class="st">"doctor"</span>, <span class="st">"doc"</span>, <span class="st">"physician"</span>, <span class="st">"surgery"</span>, <span class="st">"peds"</span>, <span class="st">"pediatrician"</span>,</span>
+<span id="cb142-3"><a href="#cb142-3" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"intensivist"</span>, <span class="st">"cardiologist"</span>, <span class="st">"coroner"</span>, <span class="st">"nurse"</span>, <span class="st">"nursing"</span>, <span class="st">"rn"</span>, <span class="st">"lpn"</span>,</span>
+<span id="cb142-4"><a href="#cb142-4" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"cna"</span>, <span class="st">"pa"</span>, <span class="st">"physician assistant"</span>, <span class="st">"mental health"</span>,</span>
+<span id="cb142-5"><a href="#cb142-5" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"emergency department technician"</span>, <span class="st">"resp therapist"</span>, <span class="st">"respiratory"</span>,</span>
+<span id="cb142-6"><a href="#cb142-6" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"phlebotomist"</span>, <span class="st">"pharmacy"</span>, <span class="st">"pharmacist"</span>, <span class="st">"hospital"</span>, <span class="st">"snf"</span>, <span class="st">"rehabilitation"</span>,</span>
+<span id="cb142-7"><a href="#cb142-7" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"rehab"</span>, <span class="st">"activity"</span>, <span class="st">"elderly"</span>, <span class="st">"subacute"</span>, <span class="st">"sub acute"</span>,</span>
+<span id="cb142-8"><a href="#cb142-8" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"clinic"</span>, <span class="st">"post acute"</span>, <span class="st">"therapist"</span>, <span class="st">"extended care"</span>,</span>
+<span id="cb142-9"><a href="#cb142-9" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"dental"</span>, <span class="st">"dential"</span>, <span class="st">"dentist"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb143"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a>med_pattern <span class="op">=</span> <span class="bu">str</span>(<span class="st">"|"</span>.join(occupation_med_frontline))</span>
+<span id="cb143-2"><a href="#cb143-2" aria-hidden="true" tabindex="-1"></a>med_pattern</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'medical|medicine|hcw|healthcare|home care|home health|surgeon|doctor|doc|physician|surgery|peds|pediatrician|intensivist|cardiologist|coroner|nurse|nursing|rn|lpn|cna|pa|physician assistant|mental health|emergency department technician|resp therapist|respiratory|phlebotomist|pharmacy|pharmacist|hospital|snf|rehabilitation|rehab|activity|elderly|subacute|sub acute|clinic|post acute|therapist|extended care|dental|dential|dentist'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb145"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb145-1"><a href="#cb145-1" aria-hidden="true" tabindex="-1"></a>med_pattern <span class="op">=</span> <span class="vs">r"\b(medical|medicine|hcw|healthcare|home care|home health|surgeon|doctor|doc|physician|surgery|peds|pediatrician|intensivist|cardiologist|coroner|nurse|nursing|rn|lpn|cna|pa|physician assistant|mental health|emergency department technician|resp therapist|respiratory|phlebotomist|pharmacy|pharmacist|hospital|snf|rehabilitation|rehab|activity|elderly|subacute|sub acute|clinic|post acute|therapist|extended care|dental|dential|dentist)\b"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb146"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb146-1"><a href="#cb146-1" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> count_occurrences(strings<span class="op">=</span>occupations, pattern<span class="op">=</span>med_pattern)</span>
+<span id="cb146-2"><a href="#cb146-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result)  <span class="co">##expected answer is 2 #TODO debug</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>3</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb148"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb148-1"><a href="#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb148-2"><a href="#cb148-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb148-3"><a href="#cb148-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> count_occurrences(strings, pattern):</span>
+<span id="cb148-4"><a href="#cb148-4" aria-hidden="true" tabindex="-1"></a>    count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb148-5"><a href="#cb148-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> string <span class="kw">in</span> strings:</span>
+<span id="cb148-6"><a href="#cb148-6" aria-hidden="true" tabindex="-1"></a>        count <span class="op">+=</span> <span class="bu">sum</span>(<span class="dv">1</span> <span class="cf">for</span> _ <span class="kw">in</span> re.finditer(pattern, string, re.IGNORECASE))</span>
+<span id="cb148-7"><a href="#cb148-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> count</span>
+<span id="cb148-8"><a href="#cb148-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb148-9"><a href="#cb148-9" aria-hidden="true" tabindex="-1"></a>occupations <span class="op">=</span> [<span class="st">"field laborer"</span>,</span>
+<span id="cb148-10"><a href="#cb148-10" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"university professor"</span>,</span>
+<span id="cb148-11"><a href="#cb148-11" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"primary school teacher &amp; tutor"</span>,</span>
+<span id="cb148-12"><a href="#cb148-12" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"tutor"</span>,</span>
+<span id="cb148-13"><a href="#cb148-13" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"nurse at regional hospital"</span>,</span>
+<span id="cb148-14"><a href="#cb148-14" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"lineworker at Amberdeen Fish Factory"</span>,</span>
+<span id="cb148-15"><a href="#cb148-15" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"physican"</span>,</span>
+<span id="cb148-16"><a href="#cb148-16" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"cardiologist"</span>,</span>
+<span id="cb148-17"><a href="#cb148-17" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"office worker"</span>,</span>
+<span id="cb148-18"><a href="#cb148-18" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"food service"</span>]</span>
+<span id="cb148-19"><a href="#cb148-19" aria-hidden="true" tabindex="-1"></a>med_pattern <span class="op">=</span> <span class="vs">r"\b(medical|medicine|hcw|healthcare|home care|home health|surgeon|doctor|doc|physician|surgery|peds|pediatrician|intensivist|cardiologist|coroner|nurse|nursing|rn|lpn|cna|pa|physician assistant|mental health|emergency department technician|resp therapist|respiratory|phlebotomist|pharmacy|pharmacist|hospital|snf|rehabilitation|rehab|activity|elderly|subacute|sub acute|clinic|post acute|therapist|extended care|dental|dential|dentist)\b"</span></span>
+<span id="cb148-20"><a href="#cb148-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb148-21"><a href="#cb148-21" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> count_occurrences(strings<span class="op">=</span>occupations, pattern<span class="op">=</span>med_pattern)</span>
+<span id="cb148-22"><a href="#cb148-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result)  <span class="co"># Expected output: 2  #TODO debug</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>3</code></pre>
+</div>
+</div>
+</section>
+<section id="convert-commas-to-period-." class="level2">
+<h2 class="anchored" data-anchor-id="convert-commas-to-period-.">Convert Commas <code>,</code> to Period <code>.</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb150"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb150-1"><a href="#cb150-1" aria-hidden="true" tabindex="-1"></a>lengths <span class="op">=</span> [<span class="st">"2.454,56"</span>, <span class="st">"1,2"</span>, <span class="st">"6.096,5"</span>]</span>
+<span id="cb150-2"><a href="#cb150-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb150-3"><a href="#cb150-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace periods and commas with no spaces and then convert the strings to floats</span></span>
+<span id="cb150-4"><a href="#cb150-4" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> [<span class="bu">float</span>(l.replace(<span class="st">"."</span>, <span class="st">""</span>).replace(<span class="st">","</span>, <span class="st">"."</span>)) <span class="cf">for</span> l <span class="kw">in</span> lengths]</span>
+<span id="cb150-5"><a href="#cb150-5" aria-hidden="true" tabindex="-1"></a>y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>[2454.56, 1.2, 6096.5]</code></pre>
+</div>
+</div>
+</section>
+<section id="replace-all" class="level2">
+<h2 class="anchored" data-anchor-id="replace-all">Replace All</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb152"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb152-1"><a href="#cb152-1" aria-hidden="true" tabindex="-1"></a>outcome <span class="op">=</span>  [<span class="st">"Karl: dead"</span>,</span>
+<span id="cb152-2"><a href="#cb152-2" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Samantha: dead"</span>,</span>
+<span id="cb152-3"><a href="#cb152-3" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Marco: not dead"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb153"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb153-1"><a href="#cb153-1" aria-hidden="true" tabindex="-1"></a>[o.replace(<span class="st">'dead'</span>, <span class="st">'deceased'</span>) <span class="cf">for</span> o <span class="kw">in</span> outcome]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['Karl: deceased', 'Samantha: deceased', 'Marco: not deceased']</code></pre>
+</div>
+</div>
+</section>
+<section id="detect-with-logic" class="level2">
+<h2 class="anchored" data-anchor-id="detect-with-logic">Detect with Logic</h2>
+<p>see above <code>Detect Multiple Terms, separated by OR bars |</code></p>
+</section>
+<section id="locate-pattern-position" class="level2">
+<h2 class="anchored" data-anchor-id="locate-pattern-position">Locate Pattern Position</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb155"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb155-1"><a href="#cb155-1" aria-hidden="true" tabindex="-1"></a>string <span class="op">=</span> <span class="st">'I wish'</span></span>
+<span id="cb155-2"><a href="#cb155-2" aria-hidden="true" tabindex="-1"></a>pattern <span class="op">=</span> <span class="st">'sh'</span></span>
+<span id="cb155-3"><a href="#cb155-3" aria-hidden="true" tabindex="-1"></a>string.find(pattern)  <span class="co"># return start position (Note: Python indexing starts from zero)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>4</code></pre>
+</div>
+</div>
+<p>To find end position</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb157"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb157-1"><a href="#cb157-1" aria-hidden="true" tabindex="-1"></a>string.find(pattern) <span class="op">+</span> <span class="bu">len</span>(pattern) <span class="op">-</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>5</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb159"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb159-1"><a href="#cb159-1" aria-hidden="true" tabindex="-1"></a>phrases <span class="op">=</span> [<span class="st">"I wish"</span>, <span class="st">"I hope"</span>, <span class="st">"he hopes"</span>, <span class="st">"He hopes"</span>]</span>
+<span id="cb159-2"><a href="#cb159-2" aria-hidden="true" tabindex="-1"></a>pattern <span class="op">=</span> <span class="st">'h'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb160"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb160-1"><a href="#cb160-1" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> []</span>
+<span id="cb160-2"><a href="#cb160-2" aria-hidden="true" tabindex="-1"></a>end <span class="op">=</span> []</span>
+<span id="cb160-3"><a href="#cb160-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p <span class="kw">in</span> phrases:</span>
+<span id="cb160-4"><a href="#cb160-4" aria-hidden="true" tabindex="-1"></a>    start.append(p.find(pattern))</span>
+<span id="cb160-5"><a href="#cb160-5" aria-hidden="true" tabindex="-1"></a>    end.append((p.find(pattern) <span class="op">+</span> <span class="bu">len</span>(pattern) <span class="op">-</span><span class="dv">1</span>))</span>
+<span id="cb160-6"><a href="#cb160-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(start)</span>
+<span id="cb160-7"><a href="#cb160-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(end)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[5, 2, 0, 3]
+[5, 2, 0, 3]</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb162"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb162-1"><a href="#cb162-1" aria-hidden="true" tabindex="-1"></a><span class="bu">list</span>(<span class="bu">zip</span>(start, end))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>[(5, 5), (2, 2), (0, 0), (3, 3)]</code></pre>
+</div>
+</div>
+</section>
+<section id="extract-a-match" class="level2">
+<h2 class="anchored" data-anchor-id="extract-a-match">Extract a Match</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb164"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb164-1"><a href="#cb164-1" aria-hidden="true" tabindex="-1"></a>occupations</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['field laborer',
+ 'university professor',
+ 'primary school teacher &amp; tutor',
+ 'tutor',
+ 'nurse at regional hospital',
+ 'lineworker at Amberdeen Fish Factory',
+ 'physican',
+ 'cardiologist',
+ 'office worker',
+ 'food service']</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb166"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb166-1"><a href="#cb166-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, o <span class="kw">in</span> <span class="bu">enumerate</span>(occupations):</span>
+<span id="cb166-2"><a href="#cb166-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">'teach'</span> <span class="kw">in</span> o <span class="kw">or</span> <span class="st">'prof'</span> <span class="kw">in</span> o <span class="kw">or</span> <span class="st">'tutor'</span> <span class="kw">in</span> o:</span>
+<span id="cb166-3"><a href="#cb166-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(i, o)</span>
+<span id="cb166-4"><a href="#cb166-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb166-5"><a href="#cb166-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(i, <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0 0
+1 university professor
+2 primary school teacher &amp; tutor
+3 tutor
+4 0
+5 0
+6 0
+7 0
+8 0
+9 0</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb168"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb168-1"><a href="#cb168-1" aria-hidden="true" tabindex="-1"></a>[o <span class="cf">if</span> <span class="st">'teach'</span> <span class="kw">in</span> o <span class="kw">or</span> <span class="st">'prof'</span> <span class="kw">in</span> o <span class="kw">or</span> <span class="st">'tutor'</span> <span class="kw">in</span> o <span class="cf">else</span> <span class="st">'NA'</span> <span class="cf">for</span> o <span class="kw">in</span> occupations]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['NA',
+ 'university professor',
+ 'primary school teacher &amp; tutor',
+ 'tutor',
+ 'NA',
+ 'NA',
+ 'NA',
+ 'NA',
+ 'NA',
+ 'NA']</code></pre>
+</div>
+</div>
+</section>
+<section id="subset-and-count" class="level2">
+<h2 class="anchored" data-anchor-id="subset-and-count">Subset and Count</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb170"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb170-1"><a href="#cb170-1" aria-hidden="true" tabindex="-1"></a>[o <span class="cf">for</span> o <span class="kw">in</span> occupations <span class="cf">if</span> <span class="st">'teach'</span> <span class="kw">in</span> o <span class="kw">or</span> <span class="st">'prof'</span> <span class="kw">in</span> o <span class="kw">or</span> <span class="st">'tutor'</span> <span class="kw">in</span> o]  <span class="co"># ignore the else 'NA' to get a shorter answer</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['university professor', 'primary school teacher &amp; tutor', 'tutor']</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb172"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb172-1"><a href="#cb172-1" aria-hidden="true" tabindex="-1"></a>[(i, o) <span class="cf">for</span> i, o <span class="kw">in</span> <span class="bu">enumerate</span>(occupations) <span class="cf">if</span> <span class="st">'teach'</span> <span class="kw">in</span> o <span class="kw">or</span> <span class="st">'prof'</span> <span class="kw">in</span> o <span class="kw">or</span> <span class="st">'tutor'</span> <span class="kw">in</span> o]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>[(1, 'university professor'),
+ (2, 'primary school teacher &amp; tutor'),
+ (3, 'tutor')]</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb174"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb174-1"><a href="#cb174-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> o <span class="kw">in</span> occupations:</span>
+<span id="cb174-2"><a href="#cb174-2" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb174-3"><a href="#cb174-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">'teach'</span> <span class="kw">in</span> o.lower():</span>
+<span id="cb174-4"><a href="#cb174-4" aria-hidden="true" tabindex="-1"></a>        n<span class="op">+=</span><span class="dv">1</span></span>
+<span id="cb174-5"><a href="#cb174-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">'prof'</span> <span class="kw">in</span> o.lower():</span>
+<span id="cb174-6"><a href="#cb174-6" aria-hidden="true" tabindex="-1"></a>        n<span class="op">+=</span><span class="dv">1</span></span>
+<span id="cb174-7"><a href="#cb174-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">'tutor'</span> <span class="kw">in</span> o.lower():</span>
+<span id="cb174-8"><a href="#cb174-8" aria-hidden="true" tabindex="-1"></a>        n<span class="op">+=</span><span class="dv">1</span></span>
+<span id="cb174-9"><a href="#cb174-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0
+1
+2
+1
+0
+0
+0
+0
+0
+0</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="special-characters" class="level1">
+<h1>Special Characters</h1>
+<p>The backslash &nbsp;is used to “escape” the meaning of the next character. For example, <code>\n</code> a new line</p>
+<p>quotes</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb176"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb176-1"><a href="#cb176-1" aria-hidden="true" tabindex="-1"></a><span class="co">"'"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>"'"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb178"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb178-1"><a href="#cb178-1" aria-hidden="true" tabindex="-1"></a><span class="co">'"'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'"'</code></pre>
+</div>
+</div>
+</section>
+<section id="regular-expression-and-special-characters" class="level1">
+<h1>Regular Expression and Special Characters</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb180"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb180-1"><a href="#cb180-1" aria-hidden="true" tabindex="-1"></a>test <span class="op">=</span> <span class="st">"A-AA-AAA-AAAA"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Use <code>re.findall</code> to find all possible matches</p>
+<section id="quantifiers" class="level2">
+<h2 class="anchored" data-anchor-id="quantifiers">Quantifiers <code>{}</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb181"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb181-1"><a href="#cb181-1" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> re.findall(<span class="vs">r'A</span><span class="sc">{2}</span><span class="vs">'</span>, test)</span>
+<span id="cb181-2"><a href="#cb181-2" aria-hidden="true" tabindex="-1"></a>result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['AA', 'AA', 'AA', 'AA']</code></pre>
+</div>
+</div>
+<p>Alternatively, use <code>re.match</code> to find the first match but preparation of text required.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb183"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb183-1"><a href="#cb183-1" aria-hidden="true" tabindex="-1"></a>test <span class="op">=</span> test.replace(<span class="st">'-'</span>, <span class="st">' '</span>)</span>
+<span id="cb183-2"><a href="#cb183-2" aria-hidden="true" tabindex="-1"></a>test <span class="op">=</span> test.split()</span>
+<span id="cb183-3"><a href="#cb183-3" aria-hidden="true" tabindex="-1"></a>test</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['A', 'AA', 'AAA', 'AAAA']</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb185"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb185-1"><a href="#cb185-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t <span class="kw">in</span> test:</span>
+<span id="cb185-2"><a href="#cb185-2" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> re.match(<span class="vs">r'A</span><span class="sc">{2}</span><span class="vs">'</span>, t)</span>
+<span id="cb185-3"><a href="#cb185-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>None
+&lt;re.Match object; span=(0, 2), match='AA'&gt;
+&lt;re.Match object; span=(0, 2), match='AA'&gt;
+&lt;re.Match object; span=(0, 2), match='AA'&gt;</code></pre>
+</div>
+</div>
+<p>When a quantifier of {2,4} is used, groups of consecutive A’s that are two to four in length are returned.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb187"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb187-1"><a href="#cb187-1" aria-hidden="true" tabindex="-1"></a>test <span class="op">=</span> <span class="st">"A-AA-AAA-AAAA"</span></span>
+<span id="cb187-2"><a href="#cb187-2" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> re.findall(<span class="vs">r'A{2,4}'</span>, test)</span>
+<span id="cb187-3"><a href="#cb187-3" aria-hidden="true" tabindex="-1"></a>result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['AA', 'AAA', 'AAAA']</code></pre>
+</div>
+</div>
+<p>With the quantifier <code>+</code>, groups of one or more are returned:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb189"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb189-1"><a href="#cb189-1" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> re.findall(<span class="vs">r'A+'</span>, test)</span>
+<span id="cb189-2"><a href="#cb189-2" aria-hidden="true" tabindex="-1"></a>result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['A', 'AA', 'AAA', 'AAAA']</code></pre>
+</div>
+</div>
+</section>
+<section id="relative-position" class="level2">
+<h2 class="anchored" data-anchor-id="relative-position">Relative Position</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb191"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb191-1"><a href="#cb191-1" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> re.findall(<span class="vs">r''</span>, test)</span>
+<span id="cb191-2"><a href="#cb191-2" aria-hidden="true" tabindex="-1"></a>result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['', '', '', '', '', '', '', '', '', '', '', '', '', '']</code></pre>
+</div>
+</div>
+</section>
+<section id="regex-examples" class="level2">
+<h2 class="anchored" data-anchor-id="regex-examples">RegEx Examples</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb193"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb193-1"><a href="#cb193-1" aria-hidden="true" tabindex="-1"></a>pt_note <span class="op">=</span> <span class="st">"Patient arrived at Broward Hospital emergency ward at 18:00 on 6/12/2005. Patient presented with radiating abdominal pain from LR quadrant. Patient skin was pale, cool, and clammy. Patient temperature was 99.8 degrees farinheit. Patient pulse rate was 100 bpm and thready. Respiratory rate was 29 per minute."</span></span>
+<span id="cb193-2"><a href="#cb193-2" aria-hidden="true" tabindex="-1"></a>pt_note</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'Patient arrived at Broward Hospital emergency ward at 18:00 on 6/12/2005. Patient presented with radiating abdominal pain from LR quadrant. Patient skin was pale, cool, and clammy. Patient temperature was 99.8 degrees farinheit. Patient pulse rate was 100 bpm and thready. Respiratory rate was 29 per minute.'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb195"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb195-1"><a href="#cb195-1" aria-hidden="true" tabindex="-1"></a>pattern <span class="op">=</span> <span class="vs">r"[A-Za-z]+"</span></span>
+<span id="cb195-2"><a href="#cb195-2" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> re.findall(pattern, pt_note)</span>
+<span id="cb195-3"><a href="#cb195-3" aria-hidden="true" tabindex="-1"></a>result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['Patient',
+ 'arrived',
+ 'at',
+ 'Broward',
+ 'Hospital',
+ 'emergency',
+ 'ward',
+ 'at',
+ 'on',
+ 'Patient',
+ 'presented',
+ 'with',
+ 'radiating',
+ 'abdominal',
+ 'pain',
+ 'from',
+ 'LR',
+ 'quadrant',
+ 'Patient',
+ 'skin',
+ 'was',
+ 'pale',
+ 'cool',
+ 'and',
+ 'clammy',
+ 'Patient',
+ 'temperature',
+ 'was',
+ 'degrees',
+ 'farinheit',
+ 'Patient',
+ 'pulse',
+ 'rate',
+ 'was',
+ 'bpm',
+ 'and',
+ 'thready',
+ 'Respiratory',
+ 'rate',
+ 'was',
+ 'per',
+ 'minute']</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb197"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb197-1"><a href="#cb197-1" aria-hidden="true" tabindex="-1"></a>pattern <span class="op">=</span> <span class="vs">r"[0-9]{1,2}"</span></span>
+<span id="cb197-2"><a href="#cb197-2" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> re.findall(pattern, pt_note)</span>
+<span id="cb197-3"><a href="#cb197-3" aria-hidden="true" tabindex="-1"></a>result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['18', '00', '6', '12', '20', '05', '99', '8', '10', '0', '29']</code></pre>
+</div>
+</div>
+<p>Tips: Go go https://regexr.com/, you can put your text and pattern there to visualise the output. Note: Also, you can apply different flags to achieve the results you wanted.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
